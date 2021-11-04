@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useAppDispatch, useAppSelector} from '../../redux/hooks';
+import {useAppDispatch, useAppSelector} from 'redux/hooks';
 import {
   decrement,
   increment,
@@ -14,7 +14,7 @@ import {
   incrementAsync,
   incrementIfOdd,
   selectCount,
-} from '../../redux/reducers/counter.slice';
+} from 'redux/reducers/counter.slice';
 
 export type TestScreenType = {
   navigation?: any;
@@ -25,7 +25,6 @@ export const TestScreen = ({navigation, route}: TestScreenType) => {
   const count = useAppSelector(selectCount);
   const dispatch = useAppDispatch();
   const [incrementAmount, setIncrementAmount] = useState('2');
-
   const incrementValue = Number(incrementAmount) || 0;
   return (
     <ScrollView>
@@ -46,6 +45,19 @@ export const TestScreen = ({navigation, route}: TestScreenType) => {
             style={styles.button}
             onPress={() => dispatch(increment())}>
             <Text style={styles.buttonText}>Increment value</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Navigation test</Text>
+        </View>
+        <View style={styles.rowContainer}>
+          <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate('Initial')}>
+            <Text style={styles.buttonText}>Open Rn Page</Text>
           </TouchableOpacity>
         </View>
       </View>
