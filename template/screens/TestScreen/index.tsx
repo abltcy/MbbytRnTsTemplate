@@ -55,8 +55,8 @@ export const TestScreen = ({navigation, route}: TestScreenType) => {
         </View>
         <View style={styles.rowContainer}>
           <TouchableOpacity
-              style={styles.button}
-              onPress={() => navigation.navigate('Initial')}>
+            style={styles.button}
+            onPress={() => navigation.navigate('Main')}>
             <Text style={styles.buttonText}>Open Rn Page</Text>
           </TouchableOpacity>
         </View>
