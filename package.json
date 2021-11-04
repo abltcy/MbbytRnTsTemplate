@@ -1,0 +1,8 @@
+{
+  "name": "react-native-ts-template",
+  "version": "0.0.1",
+  "description": "React Native Typescript Template",
+  "repository": "https://github.com/abltcy/MbbytRnTsTemplate",
+  "author": "Ahmet Baltaci <bilgi@ahmetbaltaci.com>",
+  "license": "MIT"
+}
