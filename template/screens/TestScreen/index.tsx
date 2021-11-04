@@ -16,6 +16,11 @@ import {
   selectCount,
 } from 'redux/reducers/counter.slice';
 
+import CrossIcon from 'assets/svg/icons/Cross.svg';
+import CrossBlueIcon from 'assets/svg/icons/CrossBlue.svg';
+import HomeIcon from 'assets/svg/icons/Home.svg';
+import {resizeHeight, resizeWidth} from "../../common/constants";
+
 export type TestScreenType = {
   navigation?: any;
   route?: any;
@@ -59,6 +64,17 @@ export const TestScreen = ({navigation, route}: TestScreenType) => {
             onPress={() => navigation.navigate('Main')}>
             <Text style={styles.buttonText}>Open Rn Page</Text>
           </TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Svg test</Text>
+        </View>
+        <View style={styles.rowContainer}>
+          <CrossBlueIcon width={resizeWidth(17)} height={resizeHeight(17)} />
+          <CrossIcon width={resizeWidth(17)} height={resizeHeight(17)} />
+          <HomeIcon width={resizeWidth(17)} height={resizeHeight(17)} />
         </View>
       </View>
     </ScrollView>

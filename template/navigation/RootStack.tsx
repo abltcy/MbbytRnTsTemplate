@@ -7,8 +7,8 @@ import {TestScreen} from 'screens/TestScreen';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {InitialScreen} from 'screens/initialScreen';
 import {resizeFont, resizeHeight, resizeWidth, SCREENS, theme} from 'common';
-import Cross from '../assets/svg/icons/Cross.svg';
-import CrossBlue from '../assets/svg/icons/CrossBlue.svg';
+import Cross from 'assets/svg/icons/Cross.svg';
+import CrossBlue from 'assets/svg/icons/CrossBlue.svg';
 
 const Stack = createNativeStackNavigator();
 const TabStack = createBottomTabNavigator();
