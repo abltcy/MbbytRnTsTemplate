@@ -7,7 +7,8 @@ import {TestScreen} from 'screens/TestScreen';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {InitialScreen} from 'screens/initialScreen';
 import {resizeFont, resizeHeight, resizeWidth, SCREENS, theme} from 'common';
-import Cross from 'assets/svg/icons/Cross.svg';
+import Cross from '../assets/svg/icons/Cross.svg';
+import CrossBlue from '../assets/svg/icons/CrossBlue.svg';
 
 const Stack = createNativeStackNavigator();
 const TabStack = createBottomTabNavigator();
@@ -32,18 +33,30 @@ const selectIcon = (name: string, isFocused: boolean) => {
   switch (name) {
     case SCREENS.Test:
       return isFocused ? (
-        <View style={styles.iconContainer} />
+        <View style={styles.iconContainer}>
+          <CrossBlue width={resizeWidth(17)} height={resizeHeight(17)} />
+        </View>
       ) : (
-        <View style={styles.iconContainer} />
+        <View style={styles.iconContainer}>
+          <Cross width={resizeWidth(17)} height={resizeHeight(17)} />
+        </View>
       );
     case SCREENS.Initial:
       return isFocused ? (
-        <View style={styles.iconContainer} />
+        <View style={styles.iconContainer}>
+          <CrossBlue width={resizeWidth(17)} height={resizeHeight(17)} />
+        </View>
       ) : (
-        <View style={styles.iconContainer} />
+        <View style={styles.iconContainer}>
+          <Cross width={resizeWidth(17)} height={resizeHeight(17)} />
+        </View>
       );
     default:
-      return <>/*<Cross width={resizeWidth(17)} height={resizeHeight(17)} />;*/</>
+      return (
+        <View style={styles.iconContainer}>
+          <Cross width={resizeWidth(17)} height={resizeHeight(17)} />
+        </View>
+      );
   }
 };
 
