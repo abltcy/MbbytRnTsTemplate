@@ -9,8 +9,16 @@ import {AxiosProvider} from './common/axios';
 import {RootStack} from './navigation/RootStack';
 import {ActionSheetProvider} from '@expo/react-native-action-sheet';
 import FlashMessage from 'react-native-flash-message';
+import {extendTheme, NativeBaseProvider} from 'native-base';
 import RNBootSplash from 'react-native-bootsplash';
 import {useAuth} from './common/hooks';
+import {theme} from 'src/common/constants';
+
+const nbTheme = extendTheme({
+  colors: theme.colors,
+  fonts: theme.fonts,
+  components: theme.components,
+});
 
 const Root = () => {
   const {setAuth, requestNotificationPermission} = useAuth();
@@ -40,12 +48,14 @@ const App = () => {
       <ActionSheetProvider>
         <AxiosProvider>
           <SafeAreaProvider>
-            <NavigationContainer>
-              <StatusBar
-                barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-              />
-              <Root />
-            </NavigationContainer>
+            <NativeBaseProvider theme={nbTheme}>
+              <NavigationContainer>
+                <StatusBar
+                  barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+                />
+                <Root />
+              </NavigationContainer>
+            </NativeBaseProvider>
             <FlashMessage position="bottom" />
           </SafeAreaProvider>
         </AxiosProvider>

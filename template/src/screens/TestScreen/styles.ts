@@ -1,6 +1,12 @@
 import styled from 'styled-components/native';
-
-export const StyledScrollView = styled.ScrollView``;
+export type DefaultScrollViewType = {
+  pTop: number;
+  pBottom: number;
+};
+export const StyledScrollView = styled.ScrollView<DefaultScrollViewType>`
+  ${({pBottom}) => `padding-bottom: ${pBottom}px;`}
+  ${({pTop}) => `padding-top: ${pTop}px;`}
+`;
 
 export const StyledContainer = styled.View`
   justify-content: center;

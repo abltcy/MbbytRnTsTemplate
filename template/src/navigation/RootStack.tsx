@@ -4,10 +4,10 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 import {TestScreen} from 'src/screens/TestScreen';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {InitialScreen} from 'src/screens/initialScreen';
 import {resizeFont, resizeHeight, resizeWidth, SCREENS} from 'src/common';
 import {CrossIcon, CrossBlueIcon} from 'src/assets/svg/icons';
+import {Modals} from './ModalStack';
 
 const Stack = createNativeStackNavigator();
 const TabStack = createBottomTabNavigator();
@@ -71,12 +71,10 @@ const selectLabel = (screenName: string): string => {
 };
 
 export const RootStack = () => {
-  const insets = useSafeAreaInsets();
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
-        contentStyle: {paddingTop: insets.top},
       }}>
       <Stack.Screen name={'Test'} component={TestScreen} />
       <Stack.Screen name={'Initial'} component={InitialScreen} />
@@ -98,6 +96,7 @@ export const RootStack = () => {
           </TabStack.Navigator>
         )}
       </Stack.Screen>
+      {Modals({Stack})}
     </Stack.Navigator>
   );
 };

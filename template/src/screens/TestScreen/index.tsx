@@ -11,7 +11,7 @@ import {showMessage} from 'react-native-flash-message';
 
 import {CrossIcon, CrossBlueIcon, HomeIcon} from 'src/assets/svg/icons';
 
-import {resizeHeight, resizeWidth} from 'src/common/constants';
+import {resizeHeight, resizeWidth, SCREENS} from 'src/common/constants';
 import {
   StyledContainer,
   StyledButtonText,
@@ -23,11 +23,16 @@ import {
   StyledText,
   StyledTextContainer,
 } from './styles';
-import {useCurrentUser} from "../../common/hooks/useCurrentUser";
+import {useCurrentUser} from 'src/common/hooks/useCurrentUser';
+import {
+  DefaultNavigationProp,
+  DefaultRouteProp,
+} from 'src/common/types/NavigationAndRouteParams.types';
+import {useSafeAreaInsets} from "react-native-safe-area-context";
 
 export type TestScreenType = {
-  navigation?: any;
-  route?: any;
+  navigation: DefaultNavigationProp;
+  route?: DefaultRouteProp;
 };
 
 export const TestScreen = ({navigation}: TestScreenType) => {
@@ -98,13 +103,14 @@ export const TestScreen = ({navigation}: TestScreenType) => {
     });
   };
 
-  const getIdToken = async ({user}) => {
+  const getIdToken = async ({user}: {user: any}) => {
     const JWT = await user.getIdToken(true);
     setIdToken(JWT);
   };
 
+  const insets = useSafeAreaInsets();
   return (
-    <StyledScrollView>
+    <StyledScrollView pTop={insets.top} pBottom={insets.bottom}>
       <StyledContainer>
         <StyledHeader>
           <StyledHeaderText>Redux test</StyledHeaderText>
@@ -127,7 +133,7 @@ export const TestScreen = ({navigation}: TestScreenType) => {
           <StyledHeaderText>Navigation test</StyledHeaderText>
         </StyledHeader>
         <StyledRowContainer>
-          <StyledButton onPress={() => navigation.navigate('Main')}>
+          <StyledButton onPress={() => navigation.navigate(SCREENS.Main)}>
             <StyledButtonText>Open Rn Page</StyledButtonText>
           </StyledButton>
         </StyledRowContainer>
@@ -179,6 +185,17 @@ export const TestScreen = ({navigation}: TestScreenType) => {
           <StyledTextContainer>
             <StyledText>{idToken}</StyledText>
           </StyledTextContainer>
+        </StyledRowContainer>
+      </StyledContainer>
+
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>Stripe test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer>
+          <StyledButton onPress={() => navigation.navigate(SCREENS.Stripe)}>
+            <StyledButtonText>Stripe screen</StyledButtonText>
+          </StyledButton>
         </StyledRowContainer>
       </StyledContainer>
     </StyledScrollView>
