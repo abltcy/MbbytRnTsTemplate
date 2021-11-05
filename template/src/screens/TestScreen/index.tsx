@@ -7,6 +7,7 @@ import {
 } from 'src/redux/reducers/counter.slice';
 import {useActionSheet} from '@expo/react-native-action-sheet';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { showMessage } from 'react-native-flash-message';
 
 import {CrossIcon, CrossBlueIcon, HomeIcon} from 'src/assets/svg/icons';
 
@@ -86,6 +87,17 @@ export const TestScreen = ({navigation, route}: TestScreenType) => {
     });
   };
 
+  const openFlashMessage = () => {
+    showMessage({
+      message: 'This is the Flash message',
+      type: 'default',
+      backgroundColor: 'black',
+      color: '#ffffff',
+    });
+  }
+
+
+
   return (
     <StyledScrollView>
       <StyledContainer>
@@ -137,6 +149,18 @@ export const TestScreen = ({navigation, route}: TestScreenType) => {
           </StyledButton>
         </StyledRowContainer>
       </StyledContainer>
+
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>Flash message test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer>
+          <StyledButton onPress={() => openFlashMessage()}>
+            <StyledButtonText>Flash message</StyledButtonText>
+          </StyledButton>
+        </StyledRowContainer>
+      </StyledContainer>
+
     </StyledScrollView>
   );
 };

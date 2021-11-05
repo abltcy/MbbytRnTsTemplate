@@ -6,6 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {RootStack} from './navigation/RootStack';
 import {ActionSheetProvider} from '@expo/react-native-action-sheet';
+import FlashMessage from 'react-native-flash-message';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -20,6 +21,7 @@ const App = () => {
             />
             <RootStack />
           </NavigationContainer>
+          <FlashMessage position="bottom" />
         </Provider>
       </ActionSheetProvider>
     </SafeAreaProvider>
