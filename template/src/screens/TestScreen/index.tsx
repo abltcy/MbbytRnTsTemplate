@@ -7,7 +7,7 @@ import {
 } from 'src/redux/reducers/counter.slice';
 import {useActionSheet} from '@expo/react-native-action-sheet';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import { showMessage } from 'react-native-flash-message';
+import {showMessage} from 'react-native-flash-message';
 
 import {CrossIcon, CrossBlueIcon, HomeIcon} from 'src/assets/svg/icons';
 
@@ -23,17 +23,18 @@ import {
   StyledText,
   StyledTextContainer,
 } from './styles';
+import {useCurrentUser} from "../../common/hooks/useCurrentUser";
 
 export type TestScreenType = {
   navigation?: any;
   route?: any;
 };
 
-export const TestScreen = ({navigation, route}: TestScreenType) => {
+export const TestScreen = ({navigation}: TestScreenType) => {
   const count = useAppSelector(selectCount);
   const dispatch = useAppDispatch();
-  const [incrementAmount, setIncrementAmount] = useState('2');
-  const incrementValue = Number(incrementAmount) || 0;
+  const currentUser = useCurrentUser();
+  const [idToken, setIdToken] = useState('');
   const {showActionSheetWithOptions} = useActionSheet();
   const _onOpenActionSheet = () => {
     const options = ['Take Photo', 'Choose from Camera Roll', 'Cancel'];
@@ -46,6 +47,7 @@ export const TestScreen = ({navigation, route}: TestScreenType) => {
         cancelButtonIndex,
         destructiveButtonIndex,
       },
+      // @ts-ignore
       (buttonIndex: number) => {
         console.log({buttonIndex});
         buttonIndex === 0 && takePhoto();
@@ -94,9 +96,12 @@ export const TestScreen = ({navigation, route}: TestScreenType) => {
       backgroundColor: 'black',
       color: '#ffffff',
     });
-  }
+  };
 
-
+  const getIdToken = async ({user}) => {
+    const JWT = await user.getIdToken(true);
+    setIdToken(JWT);
+  };
 
   return (
     <StyledScrollView>
@@ -161,6 +166,21 @@ export const TestScreen = ({navigation, route}: TestScreenType) => {
         </StyledRowContainer>
       </StyledContainer>
 
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>Fire base login test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer>
+          <StyledButton onPress={() => getIdToken({user: currentUser})}>
+            <StyledButtonText>Login anonymously</StyledButtonText>
+          </StyledButton>
+        </StyledRowContainer>
+        <StyledRowContainer>
+          <StyledTextContainer>
+            <StyledText>{idToken}</StyledText>
+          </StyledTextContainer>
+        </StyledRowContainer>
+      </StyledContainer>
     </StyledScrollView>
   );
 };

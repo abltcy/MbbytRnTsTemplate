@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "198027966125",
+    "firebase_url": "https://deneme-978db.firebaseio.com",
+    "project_id": "deneme-978db",
+    "storage_bucket": "deneme-978db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198027966125:android:efb50b15e473cfd92a3824",
+        "android_client_info": {
+          "package_name": "com.mobabyte.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "198027966125-hg357r6ab97e8e1cj7ceb3r5d61qk3lt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7Xc9GBzk9jZv2B7cBekEYydoszbCO2Ac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "198027966125-hg357r6ab97e8e1cj7ceb3r5d61qk3lt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
