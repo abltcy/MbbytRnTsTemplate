@@ -3,12 +3,12 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-import {TestScreen} from 'screens/TestScreen';
+import {TestScreen} from 'src/screens/TestScreen';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {InitialScreen} from 'screens/initialScreen';
-import {resizeFont, resizeHeight, resizeWidth, SCREENS, theme} from 'common';
-import Cross from 'assets/svg/icons/Cross.svg';
-import CrossBlue from 'assets/svg/icons/CrossBlue.svg';
+import {InitialScreen} from 'src/screens/initialScreen';
+import {resizeFont, resizeHeight, resizeWidth, SCREENS, theme} from 'src/common';
+import Cross from 'src/assets/svg/icons/Cross.svg';
+import CrossBlue from 'src/assets/svg/icons/CrossBlue.svg';
 
 const Stack = createNativeStackNavigator();
 const TabStack = createBottomTabNavigator();

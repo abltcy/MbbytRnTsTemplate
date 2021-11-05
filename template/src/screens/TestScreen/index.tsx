@@ -1,25 +1,11 @@
 import React, {useState} from 'react';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import {useAppDispatch, useAppSelector} from 'redux/hooks';
-import {
-  decrement,
-  increment,
-  incrementByAmount,
-  incrementAsync,
-  incrementIfOdd,
-  selectCount,
-} from 'redux/reducers/counter.slice';
+import {useAppDispatch, useAppSelector} from 'src/redux/hooks';
+import {decrement, increment, selectCount} from 'src/redux/reducers/counter.slice';
 
-import CrossIcon from 'assets/svg/icons/Cross.svg';
-import CrossBlueIcon from 'assets/svg/icons/CrossBlue.svg';
-import HomeIcon from 'assets/svg/icons/Home.svg';
-import {resizeHeight, resizeWidth} from 'common/constants';
+import CrossIcon from 'src/assets/svg/icons/Cross.svg';
+import CrossBlueIcon from 'src/assets/svg/icons/CrossBlue.svg';
+import HomeIcon from 'src/assets/svg/icons/Home.svg';
+import {resizeHeight, resizeWidth} from 'src/common/constants';
 import {
   StyledContainer,
   StyledButtonText,
