@@ -2,9 +2,8 @@ import React, {useState} from 'react';
 import {useAppDispatch, useAppSelector} from 'src/redux/hooks';
 import {decrement, increment, selectCount} from 'src/redux/reducers/counter.slice';
 
-import CrossIcon from 'src/assets/svg/icons/Cross.svg';
-import CrossBlueIcon from 'src/assets/svg/icons/CrossBlue.svg';
-import HomeIcon from 'src/assets/svg/icons/Home.svg';
+import {CrossIcon, CrossBlueIcon, HomeIcon} from 'src/assets/svg/icons';
+
 import {resizeHeight, resizeWidth} from 'src/common/constants';
 import {
   StyledContainer,
