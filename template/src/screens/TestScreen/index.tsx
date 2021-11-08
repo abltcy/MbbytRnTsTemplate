@@ -29,6 +29,7 @@ import {
   DefaultRouteProp,
 } from 'src/common/types/NavigationAndRouteParams.types';
 import {useSafeAreaInsets} from "react-native-safe-area-context";
+import Config from "react-native-config";
 
 export type TestScreenType = {
   navigation: DefaultNavigationProp;
@@ -196,6 +197,17 @@ export const TestScreen = ({navigation}: TestScreenType) => {
           <StyledButton onPress={() => navigation.navigate(SCREENS.Stripe)}>
             <StyledButtonText>Stripe screen</StyledButtonText>
           </StyledButton>
+        </StyledRowContainer>
+      </StyledContainer>
+
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>ENV config file test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer>
+          <StyledTextContainer>
+            <StyledText>{Config.CONFIG_FILE}</StyledText>
+          </StyledTextContainer>
         </StyledRowContainer>
       </StyledContainer>
     </StyledScrollView>
