@@ -1,11 +1,7 @@
 import styled from 'styled-components/native';
-export type DefaultScrollViewType = {
-  pTop: number;
-  pBottom: number;
-};
-export const StyledScrollView = styled.ScrollView<DefaultScrollViewType>`
-  ${({pBottom}) => `padding-bottom: ${pBottom}px;`}
-  ${({pTop}) => `padding-top: ${pTop}px;`}
+
+export const StyledScrollView = styled.ScrollView`
+  flex: 1;
 `;
 
 export const StyledContainer = styled.View`

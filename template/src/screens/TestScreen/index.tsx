@@ -23,13 +23,16 @@ import {
   StyledText,
   StyledTextContainer,
 } from './styles';
+import {StyledContainer as StyledDefaultComponent} from 'src/common/styles';
+
 import {useCurrentUser} from 'src/common/hooks/useCurrentUser';
 import {
   DefaultNavigationProp,
   DefaultRouteProp,
 } from 'src/common/types/NavigationAndRouteParams.types';
-import {useSafeAreaInsets} from "react-native-safe-area-context";
-import Config from "react-native-config";
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import Config from 'react-native-config';
+import CodeInput from "../../common/components/CodeInput";
 
 export type TestScreenType = {
   navigation: DefaultNavigationProp;
@@ -111,105 +114,119 @@ export const TestScreen = ({navigation}: TestScreenType) => {
 
   const insets = useSafeAreaInsets();
   return (
-    <StyledScrollView pTop={insets.top} pBottom={insets.bottom}>
-      <StyledContainer>
-        <StyledHeader>
-          <StyledHeaderText>Redux test</StyledHeaderText>
-        </StyledHeader>
-        <StyledRowContainer>
-          <StyledButton onPress={() => dispatch(decrement())}>
-            <StyledButtonText>Decrement value</StyledButtonText>
-          </StyledButton>
-          <StyledTextContainer>
-            <StyledText>{count}</StyledText>
-          </StyledTextContainer>
-          <StyledButton onPress={() => dispatch(increment())}>
-            <StyledButtonText>Increment value</StyledButtonText>
-          </StyledButton>
-        </StyledRowContainer>
-      </StyledContainer>
+    <StyledDefaultComponent pTop={insets.top} pBottom={insets.bottom}>
+      <StyledScrollView>
+        <StyledContainer>
+          <StyledHeader>
+            <StyledHeaderText>Redux test</StyledHeaderText>
+          </StyledHeader>
+          <StyledRowContainer>
+            <StyledButton onPress={() => dispatch(decrement())}>
+              <StyledButtonText>Decrement value</StyledButtonText>
+            </StyledButton>
+            <StyledTextContainer>
+              <StyledText>{count}</StyledText>
+            </StyledTextContainer>
+            <StyledButton onPress={() => dispatch(increment())}>
+              <StyledButtonText>Increment value</StyledButtonText>
+            </StyledButton>
+          </StyledRowContainer>
+        </StyledContainer>
 
-      <StyledContainer>
-        <StyledHeader>
-          <StyledHeaderText>Navigation test</StyledHeaderText>
-        </StyledHeader>
-        <StyledRowContainer>
-          <StyledButton onPress={() => navigation.navigate(SCREENS.Main)}>
-            <StyledButtonText>Open Rn Page</StyledButtonText>
-          </StyledButton>
-        </StyledRowContainer>
-      </StyledContainer>
+        <StyledContainer>
+          <StyledHeader>
+            <StyledHeaderText>Navigation test</StyledHeaderText>
+          </StyledHeader>
+          <StyledRowContainer>
+            <StyledButton onPress={() => navigation.navigate(SCREENS.Main)}>
+              <StyledButtonText>Open Rn Page</StyledButtonText>
+            </StyledButton>
+          </StyledRowContainer>
+        </StyledContainer>
 
-      <StyledContainer>
-        <StyledHeader>
-          <StyledHeaderText>Svg test</StyledHeaderText>
-        </StyledHeader>
-        <StyledRowContainer>
-          <CrossBlueIcon width={resizeWidth(17)} height={resizeHeight(17)} />
-          <CrossIcon width={resizeWidth(17)} height={resizeHeight(17)} />
-          <HomeIcon width={resizeWidth(17)} height={resizeHeight(17)} />
-        </StyledRowContainer>
-      </StyledContainer>
+        <StyledContainer>
+          <StyledHeader>
+            <StyledHeaderText>Svg test</StyledHeaderText>
+          </StyledHeader>
+          <StyledRowContainer>
+            <CrossBlueIcon width={resizeWidth(17)} height={resizeHeight(17)} />
+            <CrossIcon width={resizeWidth(17)} height={resizeHeight(17)} />
+            <HomeIcon width={resizeWidth(17)} height={resizeHeight(17)} />
+          </StyledRowContainer>
+        </StyledContainer>
 
-      <StyledContainer>
-        <StyledHeader>
-          <StyledHeaderText>Action sheet and pick image test</StyledHeaderText>
-        </StyledHeader>
-        <StyledRowContainer>
-          <StyledButton onPress={() => _onOpenActionSheet()}>
-            <StyledButtonText>Open Action Sheet</StyledButtonText>
-          </StyledButton>
-        </StyledRowContainer>
-      </StyledContainer>
+        <StyledContainer>
+          <StyledHeader>
+            <StyledHeaderText>Action sheet and pick image test</StyledHeaderText>
+          </StyledHeader>
+          <StyledRowContainer>
+            <StyledButton onPress={() => _onOpenActionSheet()}>
+              <StyledButtonText>Open Action Sheet</StyledButtonText>
+            </StyledButton>
+          </StyledRowContainer>
+        </StyledContainer>
 
-      <StyledContainer>
-        <StyledHeader>
-          <StyledHeaderText>Flash message test</StyledHeaderText>
-        </StyledHeader>
-        <StyledRowContainer>
-          <StyledButton onPress={() => openFlashMessage()}>
-            <StyledButtonText>Flash message</StyledButtonText>
-          </StyledButton>
-        </StyledRowContainer>
-      </StyledContainer>
+        <StyledContainer>
+          <StyledHeader>
+            <StyledHeaderText>Flash message test</StyledHeaderText>
+          </StyledHeader>
+          <StyledRowContainer>
+            <StyledButton onPress={() => openFlashMessage()}>
+              <StyledButtonText>Flash message</StyledButtonText>
+            </StyledButton>
+          </StyledRowContainer>
+        </StyledContainer>
 
-      <StyledContainer>
-        <StyledHeader>
-          <StyledHeaderText>Fire base login test</StyledHeaderText>
-        </StyledHeader>
-        <StyledRowContainer>
-          <StyledButton onPress={() => getIdToken({user: currentUser})}>
-            <StyledButtonText>Login anonymously</StyledButtonText>
-          </StyledButton>
-        </StyledRowContainer>
-        <StyledRowContainer>
-          <StyledTextContainer>
-            <StyledText>{idToken}</StyledText>
-          </StyledTextContainer>
-        </StyledRowContainer>
-      </StyledContainer>
+        <StyledContainer>
+          <StyledHeader>
+            <StyledHeaderText>Fire base login test</StyledHeaderText>
+          </StyledHeader>
+          <StyledRowContainer>
+            <StyledButton onPress={() => getIdToken({user: currentUser})}>
+              <StyledButtonText>Login anonymously</StyledButtonText>
+            </StyledButton>
+          </StyledRowContainer>
+          <StyledRowContainer>
+            <StyledTextContainer>
+              <StyledText>{idToken}</StyledText>
+            </StyledTextContainer>
+          </StyledRowContainer>
+        </StyledContainer>
 
-      <StyledContainer>
-        <StyledHeader>
-          <StyledHeaderText>Stripe test</StyledHeaderText>
-        </StyledHeader>
-        <StyledRowContainer>
-          <StyledButton onPress={() => navigation.navigate(SCREENS.Stripe)}>
-            <StyledButtonText>Stripe screen</StyledButtonText>
-          </StyledButton>
-        </StyledRowContainer>
-      </StyledContainer>
+        <StyledContainer>
+          <StyledHeader>
+            <StyledHeaderText>Stripe test</StyledHeaderText>
+          </StyledHeader>
+          <StyledRowContainer>
+            <StyledButton onPress={() => navigation.navigate(SCREENS.Stripe)}>
+              <StyledButtonText>Stripe screen</StyledButtonText>
+            </StyledButton>
+          </StyledRowContainer>
+        </StyledContainer>
 
-      <StyledContainer>
-        <StyledHeader>
-          <StyledHeaderText>ENV config file test</StyledHeaderText>
-        </StyledHeader>
-        <StyledRowContainer>
-          <StyledTextContainer>
-            <StyledText>{Config.CONFIG_FILE}</StyledText>
-          </StyledTextContainer>
-        </StyledRowContainer>
-      </StyledContainer>
-    </StyledScrollView>
+        <StyledContainer>
+          <StyledHeader>
+            <StyledHeaderText>ENV config file test</StyledHeaderText>
+          </StyledHeader>
+          <StyledRowContainer>
+            <StyledTextContainer>
+              <StyledText>{Config.CONFIG_FILE}</StyledText>
+            </StyledTextContainer>
+          </StyledRowContainer>
+        </StyledContainer>
+
+        <StyledContainer>
+          <StyledHeader>
+            <StyledHeaderText>Code input Test</StyledHeaderText>
+          </StyledHeader>
+          <StyledRowContainer>
+            <StyledTextContainer>
+              <CodeInput cellCount={4} type={'changeNumber'} />
+            </StyledTextContainer>
+          </StyledRowContainer>
+        </StyledContainer>
+
+      </StyledScrollView>
+    </StyledDefaultComponent>
   );
 };
