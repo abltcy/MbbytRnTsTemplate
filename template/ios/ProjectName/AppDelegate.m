@@ -12,6 +12,8 @@
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
 
+#import <GoogleMaps/GoogleMaps.h>
+
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
   SKDescriptorMapper *layoutDescriptorMapper = [[SKDescriptorMapper alloc] initWithDefaults];
@@ -30,6 +32,7 @@ static void InitializeFlipper(UIApplication *application) {
     if ([FIRApp defaultApp] == nil) {
         [FIRApp configure];
       }
+  [GMSServices provideAPIKey:@"_YOUR_API_KEY_"];
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif

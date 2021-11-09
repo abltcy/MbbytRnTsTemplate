@@ -23,7 +23,10 @@ import {
   StyledText,
   StyledTextContainer,
 } from './styles';
-import {StyledContainer as StyledDefaultComponent} from 'src/common/styles';
+import {
+  StyledContainer as StyledDefaultComponent,
+  StyledGradientContainer,
+} from 'src/common/styles';
 
 import {useCurrentUser} from 'src/common/hooks/useCurrentUser';
 import {
@@ -32,7 +35,8 @@ import {
 } from 'src/common/types/NavigationAndRouteParams.types';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Config from 'react-native-config';
-import CodeInput from "../../common/components/CodeInput";
+import CodeInput from '../../common/components/CodeInput';
+import MapView from 'react-native-maps';
 
 export type TestScreenType = {
   navigation: DefaultNavigationProp;
@@ -157,7 +161,9 @@ export const TestScreen = ({navigation}: TestScreenType) => {
 
         <StyledContainer>
           <StyledHeader>
-            <StyledHeaderText>Action sheet and pick image test</StyledHeaderText>
+            <StyledHeaderText>
+              Action sheet and pick image test
+            </StyledHeaderText>
           </StyledHeader>
           <StyledRowContainer>
             <StyledButton onPress={() => _onOpenActionSheet()}>
@@ -226,6 +232,31 @@ export const TestScreen = ({navigation}: TestScreenType) => {
           </StyledRowContainer>
         </StyledContainer>
 
+        <StyledContainer>
+          <StyledHeader>
+            <StyledHeaderText>Linear gradient Test</StyledHeaderText>
+          </StyledHeader>
+          <StyledRowContainer style={{height: 100}}>
+            <StyledGradientContainer />
+          </StyledRowContainer>
+        </StyledContainer>
+
+        <StyledContainer>
+          <StyledHeader>
+            <StyledHeaderText>Map Test</StyledHeaderText>
+          </StyledHeader>
+          <StyledRowContainer>
+            <MapView
+              style={{height: 300, width: '100%'}}
+              initialRegion={{
+                latitude: 53.3957526,
+                longitude: -2.9839239,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}
+            />
+          </StyledRowContainer>
+        </StyledContainer>
       </StyledScrollView>
     </StyledDefaultComponent>
   );

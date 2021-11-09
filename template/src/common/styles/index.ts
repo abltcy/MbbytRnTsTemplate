@@ -7,6 +7,7 @@ import {
 } from 'src/common/constants';
 import {Image} from 'native-base';
 import {TextInput} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import styled from 'styled-components/native';
 export type LabelType = {
   marginTop?: number;
@@ -32,6 +33,15 @@ export const StyledContainer = styled.View<StyledContainerType>`
 export const StyledScrollContent = styled.ScrollView`
   flex: 1;
   background-color: white;
+`;
+
+export const StyledGradientContainer = styled(LinearGradient).attrs({
+  start: { x: 0.39, y: 0 },
+  end: { x: 0.4, y: 1 },
+  locations: [0, 0.9],
+  colors: ['rgb(75,189,252)', 'rgb(24,45,255)'],
+})`
+  flex: 1;
 `;
 
 export const StyledLabel = styled(Text)<LabelType>`
