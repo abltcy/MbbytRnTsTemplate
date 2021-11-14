@@ -7,6 +7,7 @@ import {
 } from 'src/common/constants';
 import {Image} from 'native-base';
 import {TextInput} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import styled from 'styled-components/native';
 export type LabelType = {
@@ -19,9 +20,32 @@ export type StyledContainerType = {
   pBottom?: number;
 };
 
+export type StyledGradientType = {
+  bgColor?: string;
+  pTop?: number;
+  pBottom?: number;
+};
+
 type ImageSize = {
   size: number;
 };
+
+const styles = StyleSheet.create({
+  shadowStyle: {
+    backgroundColor: '#ffffff',
+    shadowColor: 'rgba(20, 21, 25, 0.05)',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowRadius: 13,
+    shadowOpacity: 1,
+    borderRadius: 12,
+  },
+});
+
+export const shadowStyle =
+  Platform.OS === 'ios' ? styles.shadowStyle : {elevation: 2};
 
 export const StyledContainer = styled.View<StyledContainerType>`
   flex: 1;
@@ -30,18 +54,22 @@ export const StyledContainer = styled.View<StyledContainerType>`
   ${({pTop}) => `padding-top: ${pTop}px;`}
 `;
 
-export const StyledScrollContent = styled.ScrollView`
+export const StyledScrollContent = styled.ScrollView<StyledContainerType>`
   flex: 1;
-  background-color: white;
+  margin-top: 10px;
+  background-color: ${({bgColor}) => (bgColor ? bgColor : 'white')};
+  ${({pBottom}) => `padding-bottom: ${pBottom}px;`}
+  ${({pTop}) => `padding-top: ${pTop}px;`}
 `;
 
 export const StyledGradientContainer = styled(LinearGradient).attrs({
-  start: { x: 0.39, y: 0 },
-  end: { x: 0.4, y: 1 },
+  start: {x: 0.39, y: 0},
+  end: {x: 0.4, y: 1},
   locations: [0, 0.9],
-  colors: ['rgb(75,189,252)', 'rgb(24,45,255)'],
-})`
+})<StyledContainerType>`
   flex: 1;
+  ${({pBottom}) => `padding-bottom: ${pBottom}px;`}
+  ${({pTop}) => `padding-top: ${pTop}px;`}
 `;
 
 export const StyledLabel = styled(Text)<LabelType>`

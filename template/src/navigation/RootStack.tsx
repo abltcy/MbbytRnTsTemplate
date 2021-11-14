@@ -3,11 +3,10 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-import {TestScreen} from 'src/screens/TestScreen';
-import {InitialScreen} from 'src/screens/initialScreen';
 import {resizeFont, resizeHeight, resizeWidth, SCREENS} from 'src/common';
 import {CrossIcon, CrossBlueIcon} from 'src/assets/svg/icons';
 import {Modals} from './ModalStack';
+import {NewScreen, TestScreen} from 'src/screens';
 
 const Stack = createNativeStackNavigator();
 const TabStack = createBottomTabNavigator();
@@ -77,7 +76,6 @@ export const RootStack = () => {
         headerShown: false,
       }}>
       <Stack.Screen name={'Test'} component={TestScreen} />
-      <Stack.Screen name={'Initial'} component={InitialScreen} />
       <Stack.Screen name={'Main'}>
         {() => (
           <TabStack.Navigator
@@ -85,6 +83,7 @@ export const RootStack = () => {
               headerShown: false,
               headerTransparent: true,
               tabBarIcon: ({focused}) => selectIcon(route.name, focused),
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
               tabBarLabel: ({focused}) => (
                 <View>
                   <Text style={styles.label}>{selectLabel(route.name)}</Text>
@@ -92,10 +91,11 @@ export const RootStack = () => {
               ),
             })}>
             <TabStack.Screen name={SCREENS.Test} component={TestScreen} />
-            <TabStack.Screen name={SCREENS.Initial} component={InitialScreen} />
+            <TabStack.Screen name={SCREENS.Initial} component={NewScreen} />
           </TabStack.Navigator>
         )}
       </Stack.Screen>
+      {/* @ts-ignore*/}
       {Modals({Stack})}
     </Stack.Navigator>
   );

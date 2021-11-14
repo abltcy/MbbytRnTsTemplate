@@ -7,14 +7,14 @@ import {
   useBlurOnFulfill,
   useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
-import {StyledCell} from './styles';
+import {StyledCell, StyledCellBox} from './styles';
 
 export type CodeFieldType = {
   cellCount: number;
   type: string;
 };
 
-const CodeInput = ({cellCount, type}: CodeFieldType) => {
+export const CodeInput = ({cellCount, type}: CodeFieldType) => {
   const [value, setValue] = useState('');
   const ref = useBlurOnFulfill({value, cellCount: cellCount});
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -39,12 +39,11 @@ const CodeInput = ({cellCount, type}: CodeFieldType) => {
         keyboardType="number-pad"
         textContentType="oneTimeCode"
         renderCell={({index, symbol, isFocused}) => (
-          <StyledCell
-            key={index}
-            focused={isFocused}
-            onLayout={getCellOnLayoutHandler(index)}>
-            {symbol || (isFocused ? <Cursor /> : null)}
-          </StyledCell>
+          <StyledCellBox focused={isFocused}>
+            <StyledCell key={index} onLayout={getCellOnLayoutHandler(index)}>
+              {symbol || (isFocused ? <Cursor /> : null)}
+            </StyledCell>
+          </StyledCellBox>
         )}
       />
     </Box>
@@ -61,4 +60,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CodeInput;

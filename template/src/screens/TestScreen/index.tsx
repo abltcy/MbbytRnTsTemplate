@@ -11,11 +11,10 @@ import {showMessage} from 'react-native-flash-message';
 
 import {CrossIcon, CrossBlueIcon, HomeIcon} from 'src/assets/svg/icons';
 
-import {resizeHeight, resizeWidth, SCREENS} from 'src/common/constants';
+import {resizeHeight, resizeWidth, SCREENS, theme} from 'src/common/constants';
 import {
   StyledContainer,
   StyledButtonText,
-  StyledScrollView,
   StyledButton,
   StyledHeader,
   StyledHeaderText,
@@ -23,20 +22,26 @@ import {
   StyledText,
   StyledTextContainer,
 } from './styles';
-import {
-  StyledContainer as StyledDefaultComponent,
-  StyledGradientContainer,
-} from 'src/common/styles';
+import {StyledGradientContainer} from 'src/common/styles';
 
 import {useCurrentUser} from 'src/common/hooks/useCurrentUser';
 import {
   DefaultNavigationProp,
   DefaultRouteProp,
 } from 'src/common/types/NavigationAndRouteParams.types';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Config from 'react-native-config';
-import CodeInput from '../../common/components/CodeInput';
+import {CodeInput, Screen} from 'src/common/components';
 import MapView from 'react-native-maps';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import Carousel from 'react-native-snap-carousel';
+import {Box, Text} from 'native-base';
+import {Dimensions} from 'react-native';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import {SwipeList} from 'src/common/components/visual/organisms/SwipeList';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import TrashIcon from 'react-native-vector-icons/Ionicons';
+import TemplateComponents from './Components';
+import {SCREEN_TYPES} from '../../common/components/Screen/types';
 
 export type TestScreenType = {
   navigation: DefaultNavigationProp;
@@ -48,6 +53,7 @@ export const TestScreen = ({navigation}: TestScreenType) => {
   const dispatch = useAppDispatch();
   const currentUser = useCurrentUser();
   const [idToken, setIdToken] = useState('');
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const {showActionSheetWithOptions} = useActionSheet();
   const _onOpenActionSheet = () => {
     const options = ['Take Photo', 'Choose from Camera Roll', 'Cancel'];
@@ -116,148 +122,253 @@ export const TestScreen = ({navigation}: TestScreenType) => {
     setIdToken(JWT);
   };
 
-  const insets = useSafeAreaInsets();
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date: any) => {
+    console.warn('A date has been picked: ', date);
+    hideDatePicker();
+  };
+
+  const _renderCarauselItem = ({item}: {item: any}) => {
+    return (
+      <Box
+        height={300}
+        justifyContent={'center'}
+        alignItems={'center'}
+        backgroundColor={theme.colors.gray}
+        borderRadius={10}>
+        <Text fontSize={30}>{item.title}</Text>
+      </Box>
+    );
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const RenderSwipeListItem = ({
+    item,
+  }: {
+    item: {title: string; key: string};
+  }) => {
+    return (
+      <Box backgroundColor={'white'}>
+        <Text fontSize={20}>{item.title}</Text>
+      </Box>
+    );
+  };
+
   return (
-    <StyledDefaultComponent pTop={insets.top} pBottom={insets.bottom}>
-      <StyledScrollView>
-        <StyledContainer>
-          <StyledHeader>
-            <StyledHeaderText>Redux test</StyledHeaderText>
-          </StyledHeader>
-          <StyledRowContainer>
-            <StyledButton onPress={() => dispatch(decrement())}>
-              <StyledButtonText>Decrement value</StyledButtonText>
-            </StyledButton>
-            <StyledTextContainer>
-              <StyledText>{count}</StyledText>
-            </StyledTextContainer>
-            <StyledButton onPress={() => dispatch(increment())}>
-              <StyledButtonText>Increment value</StyledButtonText>
-            </StyledButton>
-          </StyledRowContainer>
-        </StyledContainer>
+    <Screen
+      screenType={SCREEN_TYPES.SCROLLED}
+      gradient={{colors: ['#ffffff', '#000000']}}
+      header={{
+        headerTitle: 'New Screen',
+        titleVariant: 'title',
+        rightVariant: 'next',
+        leftVariant: 'menu',
+        shadow: true,
+      }}>
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>Redux test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer>
+          <StyledButton onPress={() => dispatch(decrement())}>
+            <StyledButtonText>Decrement value</StyledButtonText>
+          </StyledButton>
+          <StyledTextContainer>
+            <StyledText>{count}</StyledText>
+          </StyledTextContainer>
+          <StyledButton onPress={() => dispatch(increment())}>
+            <StyledButtonText>Increment value</StyledButtonText>
+          </StyledButton>
+        </StyledRowContainer>
+      </StyledContainer>
 
-        <StyledContainer>
-          <StyledHeader>
-            <StyledHeaderText>Navigation test</StyledHeaderText>
-          </StyledHeader>
-          <StyledRowContainer>
-            <StyledButton onPress={() => navigation.navigate(SCREENS.Main)}>
-              <StyledButtonText>Open Rn Page</StyledButtonText>
-            </StyledButton>
-          </StyledRowContainer>
-        </StyledContainer>
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>Navigation test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer>
+          {/*@ts-ignore*/}
+          <StyledButton onPress={() => navigation.navigate(SCREENS.Main)}>
+            <StyledButtonText>Open Rn Page</StyledButtonText>
+          </StyledButton>
+        </StyledRowContainer>
+      </StyledContainer>
 
-        <StyledContainer>
-          <StyledHeader>
-            <StyledHeaderText>Svg test</StyledHeaderText>
-          </StyledHeader>
-          <StyledRowContainer>
-            <CrossBlueIcon width={resizeWidth(17)} height={resizeHeight(17)} />
-            <CrossIcon width={resizeWidth(17)} height={resizeHeight(17)} />
-            <HomeIcon width={resizeWidth(17)} height={resizeHeight(17)} />
-          </StyledRowContainer>
-        </StyledContainer>
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>Svg test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer>
+          <CrossBlueIcon width={resizeWidth(17)} height={resizeHeight(17)} />
+          <CrossIcon width={resizeWidth(17)} height={resizeHeight(17)} />
+          <HomeIcon width={resizeWidth(17)} height={resizeHeight(17)} />
+        </StyledRowContainer>
+      </StyledContainer>
 
-        <StyledContainer>
-          <StyledHeader>
-            <StyledHeaderText>
-              Action sheet and pick image test
-            </StyledHeaderText>
-          </StyledHeader>
-          <StyledRowContainer>
-            <StyledButton onPress={() => _onOpenActionSheet()}>
-              <StyledButtonText>Open Action Sheet</StyledButtonText>
-            </StyledButton>
-          </StyledRowContainer>
-        </StyledContainer>
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>Action sheet and pick image test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer>
+          <StyledButton onPress={() => _onOpenActionSheet()}>
+            <StyledButtonText>Open Action Sheet</StyledButtonText>
+          </StyledButton>
+        </StyledRowContainer>
+      </StyledContainer>
 
-        <StyledContainer>
-          <StyledHeader>
-            <StyledHeaderText>Flash message test</StyledHeaderText>
-          </StyledHeader>
-          <StyledRowContainer>
-            <StyledButton onPress={() => openFlashMessage()}>
-              <StyledButtonText>Flash message</StyledButtonText>
-            </StyledButton>
-          </StyledRowContainer>
-        </StyledContainer>
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>Flash message test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer>
+          <StyledButton onPress={() => openFlashMessage()}>
+            <StyledButtonText>Flash message</StyledButtonText>
+          </StyledButton>
+        </StyledRowContainer>
+      </StyledContainer>
 
-        <StyledContainer>
-          <StyledHeader>
-            <StyledHeaderText>Fire base login test</StyledHeaderText>
-          </StyledHeader>
-          <StyledRowContainer>
-            <StyledButton onPress={() => getIdToken({user: currentUser})}>
-              <StyledButtonText>Login anonymously</StyledButtonText>
-            </StyledButton>
-          </StyledRowContainer>
-          <StyledRowContainer>
-            <StyledTextContainer>
-              <StyledText>{idToken}</StyledText>
-            </StyledTextContainer>
-          </StyledRowContainer>
-        </StyledContainer>
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>Fire base login test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer>
+          <StyledButton onPress={() => getIdToken({user: currentUser})}>
+            <StyledButtonText>Login anonymously</StyledButtonText>
+          </StyledButton>
+        </StyledRowContainer>
+        <StyledRowContainer>
+          <StyledTextContainer>
+            <StyledText>{idToken}</StyledText>
+          </StyledTextContainer>
+        </StyledRowContainer>
+      </StyledContainer>
 
-        <StyledContainer>
-          <StyledHeader>
-            <StyledHeaderText>Stripe test</StyledHeaderText>
-          </StyledHeader>
-          <StyledRowContainer>
-            <StyledButton onPress={() => navigation.navigate(SCREENS.Stripe)}>
-              <StyledButtonText>Stripe screen</StyledButtonText>
-            </StyledButton>
-          </StyledRowContainer>
-        </StyledContainer>
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>Stripe test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer>
+          {/*@ts-ignore*/}
+          <StyledButton onPress={() => navigation.navigate(SCREENS.Stripe)}>
+            <StyledButtonText>Stripe screen</StyledButtonText>
+          </StyledButton>
+        </StyledRowContainer>
+      </StyledContainer>
 
-        <StyledContainer>
-          <StyledHeader>
-            <StyledHeaderText>ENV config file test</StyledHeaderText>
-          </StyledHeader>
-          <StyledRowContainer>
-            <StyledTextContainer>
-              <StyledText>{Config.CONFIG_FILE}</StyledText>
-            </StyledTextContainer>
-          </StyledRowContainer>
-        </StyledContainer>
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>ENV config file test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer>
+          <StyledTextContainer>
+            <StyledText>{Config.CONFIG_FILE}</StyledText>
+          </StyledTextContainer>
+        </StyledRowContainer>
+      </StyledContainer>
 
-        <StyledContainer>
-          <StyledHeader>
-            <StyledHeaderText>Code input Test</StyledHeaderText>
-          </StyledHeader>
-          <StyledRowContainer>
-            <StyledTextContainer>
-              <CodeInput cellCount={4} type={'changeNumber'} />
-            </StyledTextContainer>
-          </StyledRowContainer>
-        </StyledContainer>
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>Code input Test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer>
+          <StyledTextContainer>
+            <CodeInput cellCount={4} type={'changeNumber'} />
+          </StyledTextContainer>
+        </StyledRowContainer>
+      </StyledContainer>
 
-        <StyledContainer>
-          <StyledHeader>
-            <StyledHeaderText>Linear gradient Test</StyledHeaderText>
-          </StyledHeader>
-          <StyledRowContainer style={{height: 100}}>
-            <StyledGradientContainer />
-          </StyledRowContainer>
-        </StyledContainer>
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>Linear gradient Test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer style={{height: 100}}>
+          <StyledGradientContainer
+            pTop={0}
+            pBottom={0}
+            colors={['#ffffff', '#000000']}
+          />
+        </StyledRowContainer>
+      </StyledContainer>
 
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>Map Test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer>
+          <MapView
+            style={{height: 300, width: '100%'}}
+            initialRegion={{
+              latitude: 53.3957526,
+              longitude: -2.9839239,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          />
+        </StyledRowContainer>
+      </StyledContainer>
+
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>Date time picker Test</StyledHeaderText>
+        </StyledHeader>
+        <StyledButton onPress={() => showDatePicker()}>
+          <StyledButtonText>Open</StyledButtonText>
+        </StyledButton>
+        <StyledRowContainer>
+          <DateTimePickerModal
+            isVisible={isDatePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+          />
+        </StyledRowContainer>
+      </StyledContainer>
+
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>Rn Carausel Test</StyledHeaderText>
+        </StyledHeader>
         <StyledContainer>
-          <StyledHeader>
-            <StyledHeaderText>Map Test</StyledHeaderText>
-          </StyledHeader>
-          <StyledRowContainer>
-            <MapView
-              style={{height: 300, width: '100%'}}
-              initialRegion={{
-                latitude: 53.3957526,
-                longitude: -2.9839239,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-              }}
-            />
-          </StyledRowContainer>
+          <Carousel
+            data={[{title: 'Slide1'}, {title: 'Slide2'}, {title: 'Slide3'}]}
+            renderItem={_renderCarauselItem}
+            sliderWidth={Dimensions.get('window').width - 50}
+            itemWidth={Dimensions.get('window').width - 90}
+          />
         </StyledContainer>
-      </StyledScrollView>
-    </StyledDefaultComponent>
+      </StyledContainer>
+
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>Swipe list Test</StyledHeaderText>
+        </StyledHeader>
+        <StyledContainer>
+          {/*<SwipeList
+              data={[
+                {title: 'item1', key: 'item1'},
+                {title: 'item2', key: 'item2'},
+                {title: 'item3', key: 'item3'},
+              ]}
+              swipeOnPress={i => console.log(i)}
+              SwipeListRenderItem={RenderSwipeListItem}
+              Icon={TrashIcon}
+            />*/}
+        </StyledContainer>
+      </StyledContainer>
+
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>Components Test</StyledHeaderText>
+        </StyledHeader>
+        <TemplateComponents />
+      </StyledContainer>
+    </Screen>
   );
 };

@@ -1,14 +1,18 @@
-import { Dimensions, PixelRatio } from 'react-native';
+import {Dimensions, PixelRatio, Platform} from 'react-native';
 
 export const pr = (dimension: number) =>
   PixelRatio.roundToNearestPixel(dimension);
 
-export const lightFont = 'Font Name Light';
-export const mediumFont = 'Font Name Medium';
-export const regularFont = 'Font Name Regular';
-export const boldFont = 'Font Name Bold';
+export const lightFont =
+  Platform.OS === 'ios' ? 'AppleSDGothicNeo-Light' : 'sans-serif-light';
+export const mediumFont =
+  Platform.OS === 'ios' ? 'AppleSDGothicNeo-Medium' : 'sans-serif-medium';
+export const regularFont =
+  Platform.OS === 'ios' ? 'AppleSDGothicNeo-Regular' : 'sans-serif';
+export const boldFont =
+  Platform.OS === 'ios' ? 'AppleSDGothicNeo-Bold' : 'sans-serif-condensed';
 
-const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
+const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
 export const resizeHeight = (height: number) => (height * SCREEN_HEIGHT) / 812;
 export const resizeWidth = (width: number) => (width * SCREEN_WIDTH) / 375;
 export const resizeHeightPx = (height: number) =>
@@ -29,6 +33,27 @@ export const theme = {
     blue: 'rgba(108,148,214,1)',
     green: 'rgba(83,204,188,1)',
     gray: 'rgb(98,98,98)',
+    input: {
+      borderColor: 'gray',
+    },
+    gradient: {
+      colors: {
+        start: '#5EC2BC',
+        end: '#65D1B6',
+        disabled: 'gray',
+      },
+      textColors: {
+        active: 'black',
+        disabled: 'white',
+      },
+    },
+    header: {
+      title: '',
+      right: {
+        active: '',
+        deActive: '',
+      },
+    },
   },
   fonts: {
     bold: boldFont,
