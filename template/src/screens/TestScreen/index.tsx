@@ -4,6 +4,9 @@ import {
   decrement,
   increment,
   selectCount,
+  selectState,
+  incrementAsync,
+  decrementAsync,
 } from 'src/redux/reducers/counter.slice';
 import {useActionSheet} from '@expo/react-native-action-sheet';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -41,7 +44,9 @@ import {SwipeList} from 'src/common/components/visual/organisms/SwipeList';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import TrashIcon from 'react-native-vector-icons/Ionicons';
 import TemplateComponents from './Components';
-import {SCREEN_TYPES} from '../../common/components/Screen/types';
+import {SCREEN_TYPES} from 'src/common/components/Screen/types';
+import {useTestCall} from 'src/api/calls/test';
+import useAppState from 'react-native-appstate-hook';
 
 export type TestScreenType = {
   navigation: DefaultNavigationProp;
@@ -50,11 +55,20 @@ export type TestScreenType = {
 
 export const TestScreen = ({navigation}: TestScreenType) => {
   const count = useAppSelector(selectCount);
+  const status = useAppSelector(selectState);
   const dispatch = useAppDispatch();
   const currentUser = useCurrentUser();
   const [idToken, setIdToken] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const {showActionSheetWithOptions} = useActionSheet();
+  const {data, error, isLoading} = useTestCall();
+
+  const {appState} = useAppState({
+    onChange: newAppState => console.warn('App state changed to ', newAppState),
+    onForeground: () => console.warn('App went to Foreground'),
+    onBackground: () => console.warn('App went to background'),
+  });
+
   const _onOpenActionSheet = () => {
     const options = ['Take Photo', 'Choose from Camera Roll', 'Cancel'];
     const destructiveButtonIndex = -1;
@@ -74,6 +88,7 @@ export const TestScreen = ({navigation}: TestScreenType) => {
       },
     );
   };
+
   const takePhoto = () => {
     launchCamera(
       {
@@ -191,6 +206,47 @@ export const TestScreen = ({navigation}: TestScreenType) => {
 
       <StyledContainer>
         <StyledHeader>
+          <StyledHeaderText>Redux thunk test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer>
+          <StyledButton onPress={() => dispatch(decrementAsync(50))}>
+            <StyledButtonText>Decrement value</StyledButtonText>
+          </StyledButton>
+          <StyledTextContainer>
+            <StyledText>{status}</StyledText>
+          </StyledTextContainer>
+          <StyledButton onPress={() => dispatch(incrementAsync(100))}>
+            <StyledButtonText>Increment value</StyledButtonText>
+          </StyledButton>
+        </StyledRowContainer>
+      </StyledContainer>
+
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>React query test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer>
+          <StyledTextContainer>
+            <StyledText>isLoading = {JSON.stringify(isLoading)}</StyledText>
+          </StyledTextContainer>
+        </StyledRowContainer>
+        <StyledRowContainer>
+          <StyledTextContainer>
+            <StyledText>error = {JSON.stringify(error)}</StyledText>
+          </StyledTextContainer>
+        </StyledRowContainer>
+        <StyledRowContainer>
+          <StyledTextContainer>
+            <StyledText isTruncated={true}>
+              {' '}
+              data = {JSON.stringify(data)}
+            </StyledText>
+          </StyledTextContainer>
+        </StyledRowContainer>
+      </StyledContainer>
+
+      <StyledContainer>
+        <StyledHeader>
           <StyledHeaderText>Navigation test</StyledHeaderText>
         </StyledHeader>
         <StyledRowContainer>
@@ -198,6 +254,15 @@ export const TestScreen = ({navigation}: TestScreenType) => {
           <StyledButton onPress={() => navigation.navigate(SCREENS.Main)}>
             <StyledButtonText>Open Rn Page</StyledButtonText>
           </StyledButton>
+        </StyledRowContainer>
+      </StyledContainer>
+
+      <StyledContainer>
+        <StyledHeader>
+          <StyledHeaderText>App state test</StyledHeaderText>
+        </StyledHeader>
+        <StyledRowContainer>
+          <StyledText>App state: {appState}</StyledText>
         </StyledRowContainer>
       </StyledContainer>
 

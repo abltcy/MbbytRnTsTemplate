@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {Text} from 'native-base';
 
 export const StyledScrollView = styled.ScrollView`
   flex: 1;
@@ -46,7 +47,7 @@ export const StyledTextContainer = styled.View`
   margin: 10px;
 `;
 
-export const StyledText = styled.Text`
+export const StyledText = styled(Text)`
   color: white;
   text-align: center;
 `;

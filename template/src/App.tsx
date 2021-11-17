@@ -11,6 +11,7 @@ import {ActionSheetProvider} from '@expo/react-native-action-sheet';
 import FlashMessage from 'react-native-flash-message';
 import {extendTheme, NativeBaseProvider} from 'native-base';
 import RNBootSplash from 'react-native-bootsplash';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import {useAuth} from './common/hooks';
 import {theme} from 'src/common/constants';
 
@@ -19,6 +20,8 @@ const nbTheme = extendTheme({
   fonts: theme.fonts,
   components: theme.components,
 });
+
+export const queryClient = new QueryClient();
 
 const Root = () => {
   const {setAuth, requestNotificationPermission} = useAuth();
@@ -50,10 +53,12 @@ const App = () => {
           <SafeAreaProvider>
             <NativeBaseProvider theme={nbTheme}>
               <NavigationContainer>
-                <StatusBar
-                  barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-                />
-                <Root />
+                <QueryClientProvider client={queryClient}>
+                  <StatusBar
+                    barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+                  />
+                  <Root />
+                </QueryClientProvider>
               </NavigationContainer>
             </NativeBaseProvider>
             <FlashMessage position="bottom" />

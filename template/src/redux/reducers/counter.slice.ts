@@ -26,6 +26,15 @@ export const incrementAsync = createAsyncThunk(
   },
 );
 
+export const decrementAsync = createAsyncThunk(
+  'counter/fetchCountMinus',
+  async (amount: number) => {
+    const response = await fetchCount(amount);
+    // The value we return becomes the `fulfilled` action payload
+    return response.data;
+  },
+);
+
 export const counterSlice = createSlice({
   name: 'counter',
   initialState,
@@ -59,6 +68,16 @@ export const counterSlice = createSlice({
       })
       .addCase(incrementAsync.rejected, state => {
         state.status = 'failed';
+      })
+      .addCase(decrementAsync.pending, state => {
+        state.status = 'loading';
+      })
+      .addCase(decrementAsync.fulfilled, (state, action) => {
+        state.status = 'idle';
+        state.value -= action.payload;
+      })
+      .addCase(decrementAsync.rejected, state => {
+        state.status = 'failed';
       });
   },
 });
@@ -69,6 +88,7 @@ export const {increment, decrement, incrementByAmount} = counterSlice.actions;
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectCount = (state: RootState) => state.counter.value;
+export const selectState = (state: RootState) => state.counter.status;
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
