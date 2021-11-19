@@ -14,6 +14,7 @@ export const Screen: React.FC<IScreenProps> = ({
   bgColor,
   screenType,
   gradient,
+  testID,
   children,
 }) => {
   const insets = useSafeAreaInsets();
@@ -21,6 +22,7 @@ export const Screen: React.FC<IScreenProps> = ({
     <StyledContainer
       bgColor={bgColor ? bgColor : 'white'}
       pTop={safeArea ? insets.top : 0}
+      testID={testID}
       pBottom={safeArea ? insets.bottom : 0}>
       {header && <ScreenHeader {...header} />}
       {children}
@@ -30,6 +32,7 @@ export const Screen: React.FC<IScreenProps> = ({
   const renderScrolledScreen = () => (
     <StyledContainer
       bgColor={bgColor ? bgColor : 'white'}
+      testID={testID}
       pTop={safeArea ? insets.top : 0}
       pBottom={safeArea ? insets.bottom : 0}>
       {header && <ScreenHeader {...header} />}
@@ -44,6 +47,7 @@ export const Screen: React.FC<IScreenProps> = ({
       colors={
         gradient ? gradient?.colors : ['rgb(75,189,252)', 'rgb(24,45,255)']
       }
+      testID={testID}
       bgColor={bgColor ? bgColor : 'white'}
       pTop={safeArea ? insets.top : 0}
       pBottom={safeArea ? insets.bottom : 0}>

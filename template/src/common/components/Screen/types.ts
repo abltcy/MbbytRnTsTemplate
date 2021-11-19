@@ -17,4 +17,5 @@ export interface IScreenProps {
   gradient?: {
     colors: string[];
   };
+  testID?: string;
 }

@@ -179,6 +179,7 @@ export const TestScreen = ({navigation}: TestScreenType) => {
   return (
     <Screen
       screenType={SCREEN_TYPES.SCROLLED}
+      testID="test-screen"
       gradient={{colors: ['#ffffff', '#000000']}}
       header={{
         headerTitle: 'New Screen',
@@ -198,7 +199,9 @@ export const TestScreen = ({navigation}: TestScreenType) => {
           <StyledTextContainer>
             <StyledText>{count}</StyledText>
           </StyledTextContainer>
-          <StyledButton onPress={() => dispatch(increment())}>
+          <StyledButton
+            testID="reduxTestIncrementButton"
+            onPress={() => dispatch(increment())}>
             <StyledButtonText>Increment value</StyledButtonText>
           </StyledButton>
         </StyledRowContainer>

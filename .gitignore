@@ -60,6 +60,9 @@ buck-out/
 /template/ios/Pods/
 /template/ios/GoogleService-Info.plist
 
-/template/.env
-/template/.env.production
-/template/.env.staging
+template/.env
+template/.env.production
+template/.env.staging
+template/ios/Index/
+template/ios/Logs
+template/ios/ModuleCache.noindex/

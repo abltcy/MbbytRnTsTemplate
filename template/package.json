@@ -12,6 +12,10 @@
     "ios": "react-native run-ios",
     "start": "react-native start  --reset-cache",
     "test": "jest",
+    "e2e:build-ios": "detox build --configuration ios",
+    "e2e:run-ios": "detox test --configuration ios",
+    "e2e:build-android": "detox build --configuration android",
+    "e2e:run-android": "detox test --configuration android",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "fullinstall": "yarn install && cd ios && arch -x86_64 pod install && cd .."
   },
@@ -64,7 +68,9 @@
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
-    "@types/jest": "^26.0.23",
+    "@types/detox": "^17.14.3",
+    "@types/jasmine": "^3.10.2",
+    "@types/jest": "^27.0.2",
     "@types/react-native": "^0.65.0",
     "@types/react-native-snap-carousel": "^3.8.5",
     "@types/react-native-vector-icons": "^6.4.10",
@@ -75,10 +81,15 @@
     "@typescript-eslint/parser": "^5.3.0",
     "babel-jest": "^26.6.3",
     "babel-plugin-module-resolver": "^4.1.0",
+    "detox": "^19.0.0",
     "eslint": "^7.14.0",
+    "eslint-plugin-detox": "^1.0.0",
+    "install": "^0.13.0",
     "jest": "^26.6.3",
+    "jest-circus": "^27.3.1",
     "metro-react-native-babel-preset": "^0.66.2",
     "react-test-renderer": "17.0.2",
+    "ts-jest": "^27.0.7",
     "typescript": "^3.8.3"
   },
   "resolutions": {
@@ -94,5 +105,16 @@
       "json",
       "node"
     ]
+  },
+  "detox": {
+    "configurations": {
+      "ios.sim": {
+        "binaryPath": "ios/Build/Products/Debug-iphonesimulator/ProjectName.app",
+        "type": "ios.simulator",
+        "name": "iPhone 13"
+      }
+    },
+    "test-runner": "jest",
+    "specs": ""
   }
 }
