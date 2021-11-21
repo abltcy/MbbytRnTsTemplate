@@ -36,7 +36,7 @@ export const Screen: React.FC<IScreenProps> = ({
       pTop={safeArea ? insets.top : 0}
       pBottom={safeArea ? insets.bottom : 0}>
       {header && <ScreenHeader {...header} />}
-      <StyledScrollContent pTop={0} pBottom={0}>
+      <StyledScrollContent testID="test-scroll-view" pTop={0} pBottom={0}>
         {children}
       </StyledScrollContent>
     </StyledContainer>

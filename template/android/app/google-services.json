@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:198027966125:android:efb50b15e473cfd92a3824",
         "android_client_info": {
-          "package_name": "com.projectname.staging"
+          "package_name": "com.projectname"
         }
       },
       "oauth_client": [
