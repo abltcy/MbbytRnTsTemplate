@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "android:staging": "ENVFILE=.env.staging react-native run-android --variant=stagingdebug && cd android && ./gradlew assembleStagingDebug",
-    "android:staging-release": "ENVFILE=.env.staging react-native run-android --variant=stagingrelease && cd android && ./gradlew assembleStagingRelease",
+    "android": "react-native run-android --variant=stagingDebug",
+    "android:staging": "ENVFILE=.env.staging react-native run-android --variant=stagingDebug && cd android && ./gradlew assembleStagingDebug",
+    "android:staging-release": "ENVFILE=.env.staging react-native run-android --variant=stagingRelease && cd android && ./gradlew assembleStagingRelease",
     "run-ios:staging": "react-native run-ios --scheme ProjectName.Staging",
     "run-ios:staging6s": "react-native run-ios --scheme ProjectName.Staging --simulator='iPhone 6s'",
     "run-ios:production": "react-native run-ios --scheme ProjectName",
