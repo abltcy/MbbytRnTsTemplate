@@ -11,7 +11,7 @@ import {ActionSheetProvider} from '@expo/react-native-action-sheet';
 import FlashMessage from 'react-native-flash-message';
 import {extendTheme, NativeBaseProvider} from 'native-base';
 import RNBootSplash from 'react-native-bootsplash';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import {QueryClient, QueryClientProvider} from 'react-query';
 import {useAuth} from './common/hooks';
 import {theme} from 'src/common/constants';
 
@@ -35,6 +35,7 @@ const Root = () => {
   useEffect(() => {
     init().finally(async () => {
       setAppReady(true);
+      await RNBootSplash.hide();
     });
   }, []);
   if (!appReady) {
