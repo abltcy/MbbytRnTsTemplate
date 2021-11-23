@@ -2,8 +2,9 @@ module.exports = {
   presets: ['module:metro-react-native-babel-preset'],
   plugins: [
     [
-      'module-resolver',
+      require.resolve('babel-plugin-module-resolver'),
       {
+        cwd: 'babelrc',
         root: ['./'],
         extensions: [
           '.ios.ts',
@@ -17,13 +18,7 @@ module.exports = {
           '.json',
         ],
         alias: {
-          store: './redux/store',
-          assets: './assets',
-          common: './common',
-          selectors: './selectors',
-          navigation: './navigation',
-          screens: './screens',
-          features: './features',
+          '@src': './src',
         },
       },
     ],

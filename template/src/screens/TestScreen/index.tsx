@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useAppDispatch, useAppSelector} from 'src/redux/hooks';
+import {useAppDispatch, useAppSelector} from '@src/redux/hooks';
 import {
   decrement,
   increment,
