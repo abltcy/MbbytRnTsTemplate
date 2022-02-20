@@ -18,7 +18,7 @@ export const Screen: React.FC<IScreenProps> = ({
   children,
 }) => {
   const insets = useSafeAreaInsets();
-  const renderDefaultScreen = () => (
+  return (
     <StyledContainer
       bgColor={bgColor ? bgColor : 'white'}
       pTop={safeArea ? insets.top : 0}
@@ -28,21 +28,47 @@ export const Screen: React.FC<IScreenProps> = ({
       {children}
     </StyledContainer>
   );
+};
 
-  const renderScrolledScreen = () => (
+export const ScrollScreen: React.FC<IScreenProps> = ({
+  header,
+  safeArea,
+  bgColor,
+  screenType,
+  gradient,
+  testID,
+  children,
+}) => {
+  const insets = useSafeAreaInsets();
+  return (
     <StyledContainer
       bgColor={bgColor ? bgColor : 'white'}
       testID={testID}
       pTop={safeArea ? insets.top : 0}
       pBottom={safeArea ? insets.bottom : 0}>
       {header && <ScreenHeader {...header} />}
-      <StyledScrollContent testID="test-scroll-view" pTop={0} pBottom={0}>
+      <StyledScrollContent
+        bgColor={bgColor ? bgColor : 'white'}
+        testID="test-scroll-view"
+        pTop={0}
+        pBottom={0}>
         {children}
       </StyledScrollContent>
     </StyledContainer>
   );
+};
 
-  const renderGradientScreen = () => (
+export const GradientScreen: React.FC<IScreenProps> = ({
+  header,
+  safeArea,
+  bgColor,
+  screenType,
+  gradient,
+  testID,
+  children,
+}) => {
+  const insets = useSafeAreaInsets();
+  return (
     <StyledGradientContainer
       colors={
         gradient ? gradient?.colors : ['rgb(75,189,252)', 'rgb(24,45,255)']
@@ -55,16 +81,4 @@ export const Screen: React.FC<IScreenProps> = ({
       {children}
     </StyledGradientContainer>
   );
-
-  const RenderScreen = () => {
-    switch (screenType) {
-      case SCREEN_TYPES.SCROLLED:
-        return renderScrolledScreen();
-      case SCREEN_TYPES.GRADIENT:
-        return renderGradientScreen();
-      default:
-        return renderDefaultScreen();
-    }
-  };
-  return <RenderScreen />;
 };

@@ -1,5 +1,5 @@
 import {useQuery} from 'react-query';
-import {useAxios} from '../../../common/axios';
+import {useAxios} from '@src/common/axios';
 
 export const useTestCall = () => {
   const {axios} = useAxios();
