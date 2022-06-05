@@ -4,4 +4,5 @@ export type RootStackParamsTypes = {
   [SCREENS.Main]: undefined;
   [SCREENS.Initial]: undefined;
   [SCREENS.Test]: undefined;
+  [SCREENS.Stripe]: undefined;
 };

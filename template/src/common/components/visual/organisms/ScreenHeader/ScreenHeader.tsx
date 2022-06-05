@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import {Box, Text} from 'native-base';
 import React from 'react';
 import {Platform, StatusBar, StyleSheet} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import CloseIcon from 'react-native-vector-icons/AntDesign';
 import ShareIcon from 'react-native-vector-icons/Feather';
 import EditIcon from 'react-native-vector-icons/FontAwesome';
@@ -52,6 +53,7 @@ export const ScreenHeader = ({
   const navigation = useNavigation();
   const mediumFont = theme.fonts.medium;
   const boldFont = theme.fonts.bold;
+  const safeAreaInsets = useSafeAreaInsets();
 
   const shadowType = () => {
     switch (shadow) {
@@ -232,13 +234,11 @@ export const ScreenHeader = ({
 
   return (
     <Box
-      justifyContent="center"
-      pt={StatusBar.currentHeight ? StatusBar.currentHeight + 10 : 10}
-      h={callOptionsVisible ? resizeHeightPx(156) : resizeHeightPx(85)}
+      backgroundColor={theme.colors.black}
       px={resizeWidth(19)}
-      bg="white"
-      style={shadowType()}>
-      <Box flex={1} flexDirection="row" justifyContent="space-between">
+      h={safeAreaInsets.top + 55}
+      justifyContent="flex-end">
+      <Box h={55} flexDirection="row" justifyContent="space-between">
         <Box alignContent="center" flex={1}>
           {leftVariant ? (
             <Box alignContent="center" justifyContent="center" flex={1}>
@@ -267,7 +267,6 @@ export const ScreenHeader = ({
           )}
         </Box>
       </Box>
-      {callOptionsVisible && callOptions}
     </Box>
   );
 };

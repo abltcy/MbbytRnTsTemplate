@@ -14,12 +14,18 @@ import RNBootSplash from 'react-native-bootsplash';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import {useAuth} from './common/hooks';
 import {theme} from 'src/common/constants';
+import codePush from 'react-native-code-push';
 
 const nbTheme = extendTheme({
   colors: theme.colors,
   fonts: theme.fonts,
   components: theme.components,
 });
+
+let codePushOptions = {
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+  installMode: codePush.InstallMode.ON_NEXT_RESUME,
+};
 
 export const queryClient = new QueryClient();
 
@@ -70,4 +76,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default codePush(codePushOptions)(App);

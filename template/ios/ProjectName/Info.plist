@@ -71,6 +71,8 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<key>CodePushDeploymentKey</key>
+    	<string>PUT_CODE_PUSH_KEYp</string>
 	<false/>
 </dict>
 </plist>
